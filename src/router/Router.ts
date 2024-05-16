@@ -1,8 +1,9 @@
-import { Express, IRouter, Request, Response, Router } from "express";
+import { Express, Request, Response, Router } from "express";
+import { Controller } from "../controllers/Controller";
 
 export class APIRouter {
-    protected _router: IRouter;
-    protected controller: any;
+    protected _router: Router;
+    protected controller: Controller;
 
     constructor() {
         this._router = Router();
@@ -12,7 +13,7 @@ export class APIRouter {
     }
 
 
-    public get router(): IRouter {
+    public get router(): Router {
         this.create();
         return this._router;
     }

@@ -10,10 +10,6 @@ export class UserRouter extends APIRouter {
     }
 
     protected create(): void {
-        this._router.get('/', (req: Request, res: Response) => {
-            this.controller.req = req;
-            this.controller.res = res;
-            return this.controller.index();
-        });
+        this._router.get('/', (req: Request, res: Response) => this.controller.index(req, res));
     }
 }

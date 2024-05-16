@@ -1,17 +1,19 @@
 import { Request, Response } from "express"
+import { Res } from "../types/Res"
 
-export default function sendResponse(req: Request, message: string, data: Array<any> | JSON, error?: unknown): {} {
+export default function sendResponse(page: number | null, limit: number | null, data: any[], message: string, error?: unknown): Res {
     if (error)
         return ({
-            "message": message,
-            "error": error
+            message,
+            data: [],
+            error
         })
 
 
     return ({
-        "message": message,
-        "data": data,
-        "page": req?.query?.page ?? 1,
-        "limit": req?.query?.limit ?? 10,
+        message,
+        data,
+        page: page ?? 1,
+        limit: limit ?? 10,
     })
 }

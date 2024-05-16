@@ -1,8 +1,9 @@
-import { IRouter } from "express";
+import { Router } from "express";
+import { Controller } from "../controllers/Controller";
 export declare class APIRouter {
-    protected _router: IRouter;
-    protected controller: any;
+    protected _router: Router;
+    protected controller: Controller;
     constructor();
     protected create(): void;
-    get router(): IRouter;
+    get router(): Router;
 }

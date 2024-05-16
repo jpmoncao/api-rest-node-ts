@@ -1,2 +1,2 @@
-import { Request } from "express";
-export default function sendResponse(req: Request, message: string, data: Array<any> | JSON, error?: unknown): {};
+import { Res } from "../types/Res";
+export default function sendResponse(page: number | null, limit: number | null, data: any[], message: string, error?: unknown): Res;

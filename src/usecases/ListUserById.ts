@@ -13,7 +13,7 @@ export default class ListUserById {
         const data = await this.repository.findUserById(id);
 
         if (data == undefined)
-            throw new UserNotFoundError('UserNotFoundError', `Nenhum usuário foi encontrado com esse id! (ID: ${id})`)
+            throw new UserNotFoundError(`Nenhum usuário foi encontrado com esse id! (ID: ${id})`)
 
         return {
             data,

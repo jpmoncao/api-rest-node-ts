@@ -9,6 +9,8 @@ interface IController {
     index?: (req: Request, res: Response) => Promise<Response>;
     show?: (req: Request, res: Response) => Promise<Response>;
     store?: (req: Request, res: Response) => Promise<Response>;
+    edit?: (req: Request, res: Response) => Promise<Response>;
+    destroy?: (req: Request, res: Response) => Promise<Response>;
 
     conn: Knex<any, any[]>;
     repository: Repo;
@@ -38,6 +40,14 @@ export default class Controller implements IController {
     }
 
     public async store(req: Request, res: Response): Promise<Response> {
+        return response;
+    }
+
+    public async edit(req: Request, res: Response): Promise<Response> {
+        return response;
+    }
+
+    public async destroy(req: Request, res: Response): Promise<Response> {
         return response;
     }
 }

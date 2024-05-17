@@ -2,6 +2,8 @@ import IUserRepo from "../database/repos/UserRepo.js";
 import UserProps from "../database/domain/user.js";
 import UseCase from "../types/UseCase.js";
 
+import { UserDuplicateUsernameError, UserMissingDataError } from "../errors/User.js";
+
 export default class CreateUser {
     repository: IUserRepo;
 
@@ -10,20 +12,23 @@ export default class CreateUser {
     }
 
     async execute(props: UserProps): Promise<UseCase> {
-        try {
-            let { id, name, username, password, created_at } = props;
+        let { name, username, password } = props;
 
-            const userId = await this.repository.createUser({ id, name, username, password, created_at });
+        if (!name || name.trim() == '' ||
+            !username || username.trim() == '' ||
+            !password || password.trim() == '')
+            throw new UserMissingDataError(`Há dados obrigatórios faltando!`);
 
-            const data = await this.repository.findUserById(Number(userId));
+        const usernameAlreadyExits = await this.repository.findUserByUsername(username);
+        if (usernameAlreadyExits !== undefined)
+            throw new UserDuplicateUsernameError(`O username '${username}' já está sendo usado por outro usuário!`);
 
-            return {
-                data,
-                message: 'Usuários criado com sucesso!'
-            };
-        } catch (error) {
-            throw error;
-        }
+        const userId = await this.repository.createUser({ name, username, password });
+        const data = await this.repository.findUserById(Number(userId));
 
+        return {
+            data,
+            message: 'Usuários criado com sucesso!'
+        };
     }
 }

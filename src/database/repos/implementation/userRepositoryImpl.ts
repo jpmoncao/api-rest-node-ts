@@ -24,11 +24,28 @@ export default class UserRepositoryImpl implements IUserRepo {
         return user[0];
     }
 
+    public async findUserByUsername(username: string): Promise<UserProps | undefined> {
+        const user: UserProps[] = await this.conn
+            .select('id', 'name', 'username')
+            .from('user')
+            .where('username', username);
+        return user[0];
+    }
+
     public async createUser(props: UserProps): Promise<UserProps | undefined> {
         const userId: UserProps = await this.conn
             .insert(props)
             .into('user');
 
         return userId;
+    }
+
+    public async updateUser(props: UserProps): Promise<UserProps | undefined> {
+        const user: UserProps = await this.conn
+            .update(props)
+            .from('user')
+            .where('id', props.id);
+
+        return user;
     }
 }

@@ -4,4 +4,5 @@ export default interface UserProps {
     username: string;
     password: string;
     created_at?: string | null;
+    [key: string]: any;
 }

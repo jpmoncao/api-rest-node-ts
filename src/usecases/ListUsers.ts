@@ -1,5 +1,5 @@
 import IUserRepo from "../database/repos/UserRepo.js";
-import { UseCase } from "../types/UseCase.js";
+import UseCase from "../types/UseCase.js";
 
 export default class ListUsers {
     repository: IUserRepo;
@@ -10,7 +10,7 @@ export default class ListUsers {
 
     async execute(): Promise<UseCase> {
         try {
-            const data = await this.repository.findUser();
+            const data = await this.repository.findUsers();
 
             return {
                 data,

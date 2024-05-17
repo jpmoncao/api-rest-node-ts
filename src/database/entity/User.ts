@@ -1,11 +1,11 @@
-import { UserProps } from "../domain/user.js";
+import UserProps from "../domain/user.js";
 
 export class User implements UserProps {
-    id?: number | undefined;
+    id?: number | null;
     name: string;
     username: string;
     password: string;
-    created_at?: string | undefined;
+    created_at?: string | null;
 
     constructor(props: UserProps) {
         this.id = props.id;

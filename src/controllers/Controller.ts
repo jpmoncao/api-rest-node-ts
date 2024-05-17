@@ -7,15 +7,17 @@ import { ParsedQs } from "qs";
 
 interface IController {
     index?: (req: Request, res: Response) => Promise<Response>;
+    show?: (req: Request, res: Response) => Promise<Response>;
+    store?: (req: Request, res: Response) => Promise<Response>;
+
     conn: Knex<any, any[]>;
+    repository: Repo;
 
     _req: Request;
     _res: Response;
-
-    repository: Repo;
 }
 
-export class Controller implements IController {
+export default class Controller implements IController {
     conn: Knex<any, any[]>;
 
     _req: Request;
@@ -28,6 +30,14 @@ export class Controller implements IController {
     }
 
     public async index(req: Request, res: Response): Promise<Response> {
+        return response;
+    }
+
+    public async show(req: Request, res: Response): Promise<Response> {
+        return response;
+    }
+
+    public async store(req: Request, res: Response): Promise<Response> {
         return response;
     }
 }

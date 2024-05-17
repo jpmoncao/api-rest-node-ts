@@ -1,7 +1,7 @@
 import { Express, Request, Response, Router } from "express";
-import { Controller } from "../controllers/Controller";
+import Controller from "../controllers/Controller";
 
-export class APIRouter {
+export default class APIRouter {
     protected _router: Router;
     protected controller: Controller;
 

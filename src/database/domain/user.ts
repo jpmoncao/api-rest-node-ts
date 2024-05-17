@@ -1,7 +1,7 @@
-export interface UserProps {
-    id?: number;
+export default interface UserProps {
+    id?: number | null;
     name: string;
     username: string;
     password: string;
-    created_at?: string;
+    created_at?: string | null;
 }

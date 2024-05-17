@@ -1,5 +1,5 @@
 export interface UseCase {
-    data: any[];
+    data: any[] | undefined;
     message: string;
     error?: string | unknown;
 }

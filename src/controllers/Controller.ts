@@ -1,19 +1,33 @@
 import { Knex } from "knex";
-import { Request, Response } from "express";
+import { Request, Response, response } from "express";
+import createConn from '../database/conn.js';
+import { Repo } from "../database/repos/Repo.js";
+import { ParamsDictionary } from "express-serve-static-core";
+import { ParsedQs } from "qs";
 
-import { UseCase } from "../types/UseCase.js";
-import createConn from '../services/conn.js';
-import { Res } from "../types/Res.js";
+interface IController {
+    index?: (req: Request, res: Response) => Promise<Response>;
+    conn: Knex<any, any[]>;
 
-export class Controller {
-    protected conn: Knex<any, any[]>;
+    _req: Request;
+    _res: Response;
 
-    protected _req: Request;
-    protected _res: Response;
+    repository: Repo;
+}
 
-    public index(req: Request, res: Response): void { };
+export class Controller implements IController {
+    conn: Knex<any, any[]>;
+
+    _req: Request;
+    _res: Response;
+
+    repository: Repo;
 
     constructor() {
         this.conn = createConn();
+    }
+
+    public async index(req: Request, res: Response): Promise<Response> {
+        return response;
     }
 }

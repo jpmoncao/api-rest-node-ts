@@ -1,19 +1,24 @@
 import { Request, Response } from "express"
-import { Res } from "../types/Res"
+import dotenv from 'dotenv'
 
-export default function sendResponse(page: number | null, limit: number | null, data: any[], message: string, error?: unknown): Res {
+dotenv.config();
+
+export default function sendResponse(req: Request, res: Response, status: number, data: any[] | undefined, message: string, error?: unknown): Response {
     if (error)
-        return ({
+        return res.status(status).json({
             message,
             data: [],
             error
         })
 
+    
 
-    return ({
+    return res.status(status).json({
+        _self: (process.env.API_ADDRESS ?? '') + req.originalUrl,
+        route: req.route,
         message,
         data,
-        page: page ?? 1,
-        limit: limit ?? 10,
+        page: Number(req.query.page ?? 1),
+        limit: Number(req.query.limit ?? 10),
     })
 }

@@ -1,22 +1,29 @@
-import { Knex } from "knex";
-import { Request, Response } from "express";
-
-import sendResponse from '../utils/response.js';
+import IUserRepo from "../database/repos/UserRepo.js";
 import { UseCase } from "../types/UseCase.js";
 
-export async function ListUser(conn: Knex<any, any[]>): Promise<UseCase> {
-    try {
-        const data = await conn.select().table('user');
-        return {
-            data,
-            message: 'Usuários listados com sucesso!',
-        };
+export default class ListUsers {
+    repository: IUserRepo;
 
-    } catch (err) {
-        return {
-            data: [],
-            message: `Erro ao listar usuários: ${err}`,
-            error: err
+    constructor(repository: IUserRepo) {
+        this.repository = repository;
+    }
+
+    async execute(): Promise<UseCase> {
+        try {
+            const data = await this.repository.findUser();
+
+            return {
+                data,
+                message: 'Usuários listados com sucesso!'
+            };
+        } catch (error) {
+            throw error;
+
+            return {
+                data: [],
+                message: 'Ocorreu um erro no lado do servidor!'
+            };
         }
+
     }
 }

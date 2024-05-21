@@ -7,4 +7,5 @@ export default interface IUserRepo extends Repo {
     findUserByUsername: (username: string) => Promise<UserProps | undefined>;
     createUser: (props: UserProps) => Promise<UserProps | undefined>;
     updateUser: (props: UserProps) => Promise<UserProps | undefined>;
+    deleteUserById: (props: UserProps) => Promise<UserProps | undefined>;
 }

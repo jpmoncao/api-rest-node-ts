@@ -12,6 +12,7 @@ import CreateUser from "../usecases/CreateUser.js";
 import EditUser from "../usecases/EditUser.js";
 
 import sendResponse from "../utils/response.js";
+import DeleteUser from "../usecases/DeleteUser.js";
 
 dotenv.config();
 
@@ -85,15 +86,16 @@ export default class UserController extends Controller {
             .catch(err => sendResponse(req, res, 500, [], err.message, err))
     }
 
-    // public async destroy(req: Request, res: Response): Promise<Response> {
-    //     const createUser = new CreateUser(this.repository);
+    public async destroy(req: Request, res: Response): Promise<Response> {
+        const deleteUser = new DeleteUser(this.repository);
 
-    //     const { id, name, username, password, created_at } = req.body;
+        const id = Number(req.params.id);
+        const { name, username, password } = req.body;
 
-    //     return await createUser.execute({ id, name, username, password, created_at })
-    //         .then(({ data, message }) => sendResponse(req, res, 202, data, message))
-    //         .catch(err => sendResponse(req, res, 500, [], err.message, err))
-    // }
+        return await deleteUser.execute({ id, name, username, password })
+            .then(({ data, message }) => sendResponse(req, res, 202, data, message))
+            .catch(err => sendResponse(req, res, 500, [], err.message, err))
+    }
 
     public async show(req: Request, res: Response): Promise<Response> {
         const listUserById = new ListUserById(this.repository);

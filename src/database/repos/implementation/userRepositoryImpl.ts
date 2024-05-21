@@ -1,7 +1,7 @@
 import { Knex } from "knex";
-import IUserRepo from "../UserRepo.js";
 import createConn from "../../conn.js";
 import UserProps from "../../domain/user.js";
+import IUserRepo from "../UserRepo.js";
 
 export default class UserRepositoryImpl implements IUserRepo {
     public conn: Knex<any, any[]>;
@@ -47,5 +47,12 @@ export default class UserRepositoryImpl implements IUserRepo {
             .where('id', props.id);
 
         return user;
+    }
+
+    public async deleteUserById(props: UserProps): Promise<UserProps | undefined> {
+        return await this.conn
+            .delete()
+            .from('user')
+            .where('id', props.id);
     }
 }
